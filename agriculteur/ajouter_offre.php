@@ -17,8 +17,49 @@ if (!isset($_SESSION['agriculteur_id'])) {
 require_once '../config/connexion.php';
 $agri_id = $_SESSION['agriculteur_id'];
 
-$fruits = $conn->query("SELECT * FROM type_fruit ORDER BY libelle")->fetchAll(PDO::FETCH_ASSOC);
-$gouvernorats = $conn->query("SELECT * FROM gouvernorat ORDER BY libelle")->fetchAll(PDO::FETCH_ASSOC);
+$fruits_raw = $conn->query("SELECT id_type_fruit, libelle FROM type_fruit ORDER BY libelle")->fetchAll(PDO::FETCH_ASSOC);
+$gouvernorats_raw = $conn->query("SELECT id_gouvernorat, libelle FROM gouvernorat ORDER BY libelle")->fetchAll(PDO::FETCH_ASSOC);
+
+$normalize_label = static function ($label) {
+    $label = trim((string)$label);
+    return function_exists('mb_strtolower') ? mb_strtolower($label, 'UTF-8') : strtolower($label);
+};
+
+$fruits = [];
+$fruits_seen = [];
+foreach ($fruits_raw as $fruit_row) {
+    $label = trim((string)$fruit_row['libelle']);
+    if ($label === '') {
+        continue;
+    }
+    $key = $normalize_label($label);
+    if (isset($fruits_seen[$key])) {
+        continue;
+    }
+    $fruits_seen[$key] = true;
+    $fruits[] = [
+        'id_type_fruit' => (int)$fruit_row['id_type_fruit'],
+        'libelle' => $label
+    ];
+}
+
+$gouvernorats = [];
+$gouvernorats_seen = [];
+foreach ($gouvernorats_raw as $gouvernorat_row) {
+    $label = trim((string)$gouvernorat_row['libelle']);
+    if ($label === '') {
+        continue;
+    }
+    $key = $normalize_label($label);
+    if (isset($gouvernorats_seen[$key])) {
+        continue;
+    }
+    $gouvernorats_seen[$key] = true;
+    $gouvernorats[] = [
+        'id_gouvernorat' => (int)$gouvernorat_row['id_gouvernorat'],
+        'libelle' => $label
+    ];
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter'])) {
     $fruit = (int)$_POST['fruit'];
@@ -63,11 +104,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter'])) {
     </ul>
 </nav>
 
-<div style="padding: 100px 60px 60px;">
+<main class="page-shell page-shell--narrow">
     <h1 style="font-size:32px;margin-bottom:10px;">Créer une Offre de Récolte</h1>
     <p style="color:var(--gris);margin-bottom:32px;">Publiez une nouvelle offre pour trouver des ouvriers</p>
 
-    <div style="max-width:700px;">
+    <div class="centered-form-wrap">
         <?php if (!empty($erreurs)): ?>
             <div style="background:#fee2e2;border:1px solid #fecaca;color:#991b1b;padding:16px;border-radius:var(--radius);margin-bottom:24px;">
                 <?php foreach ($erreurs as $e): echo '-- ' . htmlspecialchars($e) . '<br/>'; endforeach; ?>
@@ -145,15 +186,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter'])) {
 
         <?php endif; ?>
     </div>
-</div>
+</main>
 
-<footer style="margin-top:60px;">
+<footer>
     <p>&copy; 2026 UberCueillette -- ISG Tunis</p>
     <p>Projet Web2</p>
 </footer>
 
 <style>
-    select, input[type="date"], input[type="number"], input[type="text"] {
+    .centered-form-wrap select,
+    .centered-form-wrap input[type="date"],
+    .centered-form-wrap input[type="number"],
+    .centered-form-wrap input[type="text"] {
         background:var(--noir2);
         border:1px solid var(--gris2);
         color:var(--blanc);
@@ -162,7 +206,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter'])) {
         font-family:inherit;
         font-size:14px;
     }
-    select:focus, input:focus {
+    .centered-form-wrap select:focus,
+    .centered-form-wrap input:focus {
         outline:none;
         border-color:var(--vert);
         background:var(--noir2);

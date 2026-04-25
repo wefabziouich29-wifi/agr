@@ -33,13 +33,84 @@ require_once '../config/connexion.php';
 $ouvrier_id = $_SESSION['ouvrier_id'];
 
 // Récupérer listes pour filtres
-$fruits = $conn->query("SELECT * FROM type_fruit ORDER BY libelle")->fetchAll(PDO::FETCH_ASSOC);
-$gouvernorats = $conn->query("SELECT * FROM gouvernorat ORDER BY libelle")->fetchAll(PDO::FETCH_ASSOC);
+$fruits_raw = $conn->query("SELECT id_type_fruit, libelle FROM type_fruit ORDER BY libelle")->fetchAll(PDO::FETCH_ASSOC);
+$gouvernorats_raw = $conn->query("SELECT id_gouvernorat, libelle FROM gouvernorat ORDER BY libelle")->fetchAll(PDO::FETCH_ASSOC);
+
+$normalize_label = static function ($label) {
+    $label = trim((string)$label);
+    return function_exists('mb_strtolower') ? mb_strtolower($label, 'UTF-8') : strtolower($label);
+};
+
+$fruits = [];
+$fruit_groups = [];
+$fruit_id_to_group = [];
+foreach ($fruits_raw as $fruit_row) {
+    $label = trim((string)$fruit_row['libelle']);
+    if ($label === '') {
+        continue;
+    }
+
+    $id = (int)$fruit_row['id_type_fruit'];
+    $key = $normalize_label($label);
+
+    if (!isset($fruit_groups[$key])) {
+        $fruit_groups[$key] = [];
+        $fruits[] = [
+            'id_type_fruit' => $id,
+            'libelle' => $label
+        ];
+    }
+
+    $fruit_groups[$key][] = $id;
+    $fruit_id_to_group[$id] = $key;
+}
+
+$gouvernorats = [];
+$gouvernorat_groups = [];
+$gouvernorat_id_to_group = [];
+foreach ($gouvernorats_raw as $gouvernorat_row) {
+    $label = trim((string)$gouvernorat_row['libelle']);
+    if ($label === '') {
+        continue;
+    }
+
+    $id = (int)$gouvernorat_row['id_gouvernorat'];
+    $key = $normalize_label($label);
+
+    if (!isset($gouvernorat_groups[$key])) {
+        $gouvernorat_groups[$key] = [];
+        $gouvernorats[] = [
+            'id_gouvernorat' => $id,
+            'libelle' => $label
+        ];
+    }
+
+    $gouvernorat_groups[$key][] = $id;
+    $gouvernorat_id_to_group[$id] = $key;
+}
 
 // Filtres
 $fruit_filter = isset($_GET['fruit']) ? (int)$_GET['fruit'] : 0;
 $gouvernorat_filter = isset($_GET['gouvernorat']) ? (int)$_GET['gouvernorat'] : 0;
 $prix_filter = isset($_GET['prix']) ? (int)$_GET['prix'] : 0;
+
+$fruit_filter_ids = [];
+if ($fruit_filter > 0) {
+    if (isset($fruit_id_to_group[$fruit_filter])) {
+        $fruit_filter_ids = $fruit_groups[$fruit_id_to_group[$fruit_filter]];
+    } else {
+        $fruit_filter_ids = [$fruit_filter];
+    }
+}
+
+$gouvernorat_filter_ids = [];
+if ($gouvernorat_filter > 0) {
+    if (isset($gouvernorat_id_to_group[$gouvernorat_filter])) {
+        $gouvernorat_filter_ids = $gouvernorat_groups[$gouvernorat_id_to_group[$gouvernorat_filter]];
+    } else {
+        $gouvernorat_filter_ids = [$gouvernorat_filter];
+    }
+}
 
 $query = "
     SELECT o.*, t.libelle as fruit, g.libelle as gouvernorat, 
@@ -50,8 +121,12 @@ $query = "
     WHERE o.date_limite > NOW()
 ";
 
-if ($fruit_filter > 0) $query .= " AND o.id_type_fruit = $fruit_filter";
-if ($gouvernorat_filter > 0) $query .= " AND o.id_gouvernorat = $gouvernorat_filter";
+if (!empty($fruit_filter_ids)) {
+    $query .= " AND o.id_type_fruit IN (" . implode(',', array_map('intval', $fruit_filter_ids)) . ")";
+}
+if (!empty($gouvernorat_filter_ids)) {
+    $query .= " AND o.id_gouvernorat IN (" . implode(',', array_map('intval', $gouvernorat_filter_ids)) . ")";
+}
 if ($prix_filter > 0) $query .= " AND o.prix_journee <= $prix_filter";
 
 $query .= " ORDER BY o.date_limite ASC";

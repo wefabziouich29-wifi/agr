@@ -1,0 +1,13 @@
+<?php
+$servername = 'localhost';
+$username   = 'root';
+$password   = '';
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=uber_cueillette", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->exec("SET NAMES 'utf8'");
+} catch (PDOException $e) {
+    die("Erreur de connexion : " . $e->getMessage());
+}
+?>

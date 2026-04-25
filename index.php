@@ -250,7 +250,8 @@
         <a href="index.php" class="logo">Uber<span>Cueillette</span></a>
         <ul class="nav-menu">
             <li><a href="index.php">Accueil</a></li>
-            <li><a href="auth.php" class="nav-cta">Login / Sign Up</a></li>
+            <li><a href="agriculteur/login.php">Agriculteur</a></li>
+            <li><a href="ouvrier/login.php">Ouvrier</a></li>
         </ul>
     </nav>
 
@@ -273,14 +274,14 @@
 
     <div class="espaces">
 
-        <a href="auth.php?mode=signup&role=agriculteur" class="espace-btn espace-btn-agri">
+        <a href="agriculteur/login.php" class="espace-btn espace-btn-agri">
             <span class="espace-label">Agriculteur</span>
             <span class="espace-title">Vous etes agriculteur ?</span>
             <span class="espace-desc">Publiez vos offres, gerez les candidatures et evaluez vos ouvriers.</span>
             <span class="espace-arrow">Acceder &rarr;</span>
         </a>
 
-        <a href="auth.php?mode=signup&role=ouvrier" class="espace-btn espace-btn-ouv">
+        <a href="ouvrier/login.php" class="espace-btn espace-btn-ouv">
             <span class="espace-label">Ouvrier</span>
             <span class="espace-title">Vous cherchez du travail ?</span>
             <span class="espace-desc">Consultez les offres disponibles et postulez en un seul clic.</span>

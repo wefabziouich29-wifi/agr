@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Offres de Récolte - Uber-Cueillette</title>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/style.css?v=4"/>
     <style>
         .filters { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-bottom:32px; }
         .filters select, .filters input { background:var(--noir3); border:1px solid var(--gris2); color:var(--blanc); padding:10px; border-radius:var(--radius); }
@@ -141,6 +141,7 @@ $offre_ids_postulees = array_map(fn($c) => $c['id_offre'], $mes_candidatures);
     <a href="../index.php" class="nav-logo">Uber<span>Cueillette</span></a>
     <ul class="nav-links">
         <li><a href="dashboard.php">Dashboard</a></li>
+        <li><a href="liste_offres.php">Offres</a></li>
         <li><a href="mes_candidatures.php">Mes Candidatures</a></li>
         <li><a href="mes_chantiers.php">Mes Chantiers</a></li>
         <li><a href="profil.php">Mon Profil</a></li>

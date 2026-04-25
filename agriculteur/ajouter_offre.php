@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Ajouter une Offre - Uber-Cueillette</title>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/style.css?v=4"/>
 </head>
 <body>
 
@@ -99,12 +99,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter'])) {
     <ul class="nav-links">
         <li><a href="dashboard.php">Dashboard</a></li>
         <li><a href="mes_offres.php">Mes Offres</a></li>
+        <li><a href="ajouter_offre.php" class="nav-btn">+ Nouvelle Offre</a></li>
         <li><a href="profil.php">Mon Profil</a></li>
         <li><a href="logout.php" class="nav-btn">Déconnexion</a></li>
     </ul>
 </nav>
 
-<main class="page-shell page-shell--narrow">
+<main class="page-shell page-shell--form">
     <h1 style="font-size:32px;margin-bottom:10px;">Créer une Offre de Récolte</h1>
     <p style="color:var(--gris);margin-bottom:32px;">Publiez une nouvelle offre pour trouver des ouvriers</p>
 

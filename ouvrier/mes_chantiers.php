@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mes Chantiers - Uber-Cueillette</title>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/style.css?v=4"/>
     <style>
         .chantier-card { background:var(--noir3); border:1px solid var(--gris2); border-radius:var(--radius); padding:24px; margin-bottom:16px; }
         .chantier-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid var(--gris2); padding-bottom:16px; }
@@ -54,6 +54,7 @@ if (!empty($chantiers)) {
         <li><a href="dashboard.php">Dashboard</a></li>
         <li><a href="liste_offres.php">Offres</a></li>
         <li><a href="mes_candidatures.php">Mes Candidatures</a></li>
+        <li><a href="mes_chantiers.php">Mes Chantiers</a></li>
         <li><a href="profil.php">Mon Profil</a></li>
         <li><a href="logout.php" class="nav-btn">Déconnexion</a></li>
     </ul>

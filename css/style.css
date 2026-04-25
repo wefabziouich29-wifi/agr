@@ -37,6 +37,7 @@ nav {
     position        : fixed;
     top             : 0;
     left            : 0;
+    right           : 0;
     width           : 100%;
     z-index         : 1000;
     display         : flex;
@@ -58,6 +59,10 @@ nav {
     letter-spacing : 1px;
 }
 
+.nav-logo:visited,
+.nav-logo:focus,
+.nav-logo:active { color: var(--blanc); }
+
 .nav-logo span { color: var(--vert-clair); }
 
 .nav-links {
@@ -66,6 +71,8 @@ nav {
     gap        : 36px;
     list-style : none;
 }
+
+.nav-links li { list-style: none; }
 
 .nav-links a {
     color          : var(--gris);
@@ -76,21 +83,44 @@ nav {
     transition     : color var(--transition);
 }
 
+.nav-links a:visited,
+.nav-links a:focus,
+.nav-links a:active {
+    color          : var(--gris);
+    text-decoration: none;
+}
+
 .nav-links a:hover { color: var(--blanc); }
 
+.nav-links a:focus-visible {
+    outline       : 2px solid rgba(106,176,76,0.6);
+    outline-offset: 2px;
+    border-radius : 20px;
+}
+
 .nav-btn {
+    display        : inline-flex;
+    align-items    : center;
+    justify-content: center;
     background     : var(--vert);
     color          : var(--blanc) !important;
     padding        : 10px 24px;
     border-radius  : 30px;
     font-weight    : 500 !important;
     font-size      : 14px;
-    transition     : background var(--transition), transform var(--transition) !important;
+    transition     : background var(--transition), box-shadow var(--transition) !important;
+}
+
+.nav-btn:visited,
+.nav-btn:focus,
+.nav-btn:active {
+    color      : var(--blanc) !important;
+    background : var(--vert) !important;
 }
 
 .nav-btn:hover {
     background : var(--vert-clair) !important;
-    transform  : scale(1.04) !important;
+    box-shadow : 0 0 0 2px rgba(106,176,76,0.25);
     color      : var(--blanc) !important;
 }
 
@@ -368,9 +398,13 @@ footer p {
     max-width : 860px;
 }
 
+.page-shell--form {
+    max-width : 1080px;
+}
+
 .centered-form-wrap {
     width     : 100%;
-    max-width : 700px;
+    max-width : 980px;
     margin    : 0 auto;
 }
 
@@ -563,5 +597,6 @@ footer p {
     .stats-bar { grid-template-columns: 1fr; }
     .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .page-shell { padding: 100px 20px 40px; }
+    .centered-form-wrap { max-width: 100%; }
     .form-box { padding: 36px 24px; }
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Postulants - Uber-Cueillette</title>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/style.css?v=4"/>
     <style>
         .postulant-card { background:var(--noir3); border:1px solid var(--gris2); border-radius:var(--radius); padding:24px; margin-bottom:16px; display:flex; gap:24px; }
         .postulant-photo { width:120px; height:120px; border-radius:var(--radius); overflow:hidden; flex-shrink:0; background:var(--gris2); display:flex; align-items:center; justify-content:center; }
@@ -78,6 +78,8 @@ $fruit = $fruits->fetch(PDO::FETCH_ASSOC);
     <ul class="nav-links">
         <li><a href="dashboard.php">Dashboard</a></li>
         <li><a href="mes_offres.php">Mes Offres</a></li>
+        <li><a href="ajouter_offre.php" class="nav-btn">+ Nouvelle Offre</a></li>
+        <li><a href="profil.php">Mon Profil</a></li>
         <li><a href="logout.php" class="nav-btn">Déconnexion</a></li>
     </ul>
 </nav>

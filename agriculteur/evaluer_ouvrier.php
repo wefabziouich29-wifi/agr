@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Évaluer les ouvriers - Uber-Cueillette</title>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/style.css?v=4"/>
     <style>
         .ouvrier-eval { background:var(--noir3); border:1px solid var(--gris2); border-radius:var(--radius); padding:24px; margin-bottom:24px; }
         .eval-form { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
@@ -70,11 +70,13 @@ $f = $fruit->fetch(PDO::FETCH_ASSOC);
     <ul class="nav-links">
         <li><a href="dashboard.php">Dashboard</a></li>
         <li><a href="mes_offres.php">Mes Offres</a></li>
+        <li><a href="ajouter_offre.php" class="nav-btn">+ Nouvelle Offre</a></li>
+        <li><a href="profil.php">Mon Profil</a></li>
         <li><a href="logout.php" class="nav-btn">Déconnexion</a></li>
     </ul>
 </nav>
 
-<div style="padding: 100px 60px 60px;">
+<main class="page-shell page-shell--form">
     <h1 style="font-size:32px;margin-bottom:10px;">Évaluer les ouvriers</h1>
     <p style="color:var(--gris);margin-bottom:32px;">Chantier <?= htmlspecialchars($f['libelle']) ?> - Du <?= date('d/m/Y', strtotime($o['date_debut'])) ?> au <?= date('d/m/Y', strtotime($o['date_fin'])) ?></p>
 
@@ -142,9 +144,9 @@ $f = $fruit->fetch(PDO::FETCH_ASSOC);
     <div style="margin-top:32px;">
         <a href="mes_offres.php" style="color:var(--vert);text-decoration:none;font-weight:500;">← Retour à mes offres</a>
     </div>
-</div>
+</main>
 
-<footer style="margin-top:60px;">
+<footer>
     <p>&copy; 2026 UberCueillette -- ISG Tunis</p>
     <p>Projet Web2</p>
 </footer>

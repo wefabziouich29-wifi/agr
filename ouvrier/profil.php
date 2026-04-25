@@ -4,9 +4,9 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mon Profil - Uber-Cueillette</title>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/style.css?v=4"/>
     <style>
-        .profil-container { display:grid; grid-template-columns:300px 1fr; gap:32px; max-width:900px; }
+        .profil-container { display:grid; grid-template-columns:300px 1fr; gap:32px; max-width:900px; margin:0 auto; }
         .profil-photo { width:100%; background:var(--noir3); border-radius:var(--radius); overflow:hidden; }
         .profil-photo img { width:100%; height:auto; display:block; }
         .profil-edit { }
@@ -63,11 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
         <li><a href="dashboard.php">Dashboard</a></li>
         <li><a href="liste_offres.php">Offres</a></li>
         <li><a href="mes_candidatures.php">Mes Candidatures</a></li>
+        <li><a href="mes_chantiers.php">Mes Chantiers</a></li>
+        <li><a href="profil.php">Mon Profil</a></li>
         <li><a href="logout.php" class="nav-btn">Déconnexion</a></li>
     </ul>
 </nav>
 
-<div style="padding: 100px 60px 60px;">
+<main class="page-shell page-shell--form">
     <h1 style="font-size:32px;margin-bottom:10px;">Mon Profil</h1>
     <p style="color:var(--gris);margin-bottom:32px;">Gérez vos informations</p>
 
@@ -138,9 +140,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             </form>
         </div>
     </div>
-</div>
 
-<footer style="margin-top:60px;">
+</main>
+
+<footer>
     <p>&copy; 2026 UberCueillette -- ISG Tunis</p>
     <p>Projet Web2</p>
 </footer>

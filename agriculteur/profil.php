@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mon Profil - Uber-Cueillette</title>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/style.css?v=4"/>
     <style>
         .form-group { margin-bottom:20px; }
         .form-group label { display:block; margin-bottom:8px; font-weight:500; }
@@ -51,11 +51,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
     <ul class="nav-links">
         <li><a href="dashboard.php">Dashboard</a></li>
         <li><a href="mes_offres.php">Mes Offres</a></li>
+        <li><a href="ajouter_offre.php" class="nav-btn">+ Nouvelle Offre</a></li>
+        <li><a href="profil.php">Mon Profil</a></li>
         <li><a href="logout.php" class="nav-btn">Déconnexion</a></li>
     </ul>
 </nav>
 
-<div style="padding: 100px 60px 60px;max-width:700px;">
+<main class="page-shell page-shell--form">
+    <div class="centered-form-wrap">
     <h1 style="font-size:32px;margin-bottom:10px;">Mon Profil</h1>
     <p style="color:var(--gris);margin-bottom:32px;">Gérez vos informations</p>
 
@@ -109,9 +112,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
 
         <button type="submit" name="update" class="btn-save">Enregistrer les modifications</button>
     </form>
-</div>
 
-<footer style="margin-top:60px;">
+    </div>
+</main>
+
+<footer>
     <p>&copy; 2026 UberCueillette -- ISG Tunis</p>
     <p>Projet Web2</p>
 </footer>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Dashboard Agriculteur - Uber-Cueillette</title>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/style.css?v=4"/>
 </head>
 <body>
 
@@ -21,6 +21,7 @@ $agri_id = $_SESSION['agriculteur_id'];
 <nav>
     <a href="../index.php" class="nav-logo">Uber<span>Cueillette</span></a>
     <ul class="nav-links">
+        <li><a href="dashboard.php">Dashboard</a></li>
         <li><a href="mes_offres.php">Mes Offres</a></li>
         <li><a href="ajouter_offre.php" class="nav-btn">+ Nouvelle Offre</a></li>
         <li><a href="profil.php">Mon Profil</a></li>
